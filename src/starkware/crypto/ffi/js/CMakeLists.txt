@@ -1,3 +1,4 @@
+# wildcard does not work with copy command on Windows
 if (WIN32)
     add_custom_command(
         OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/libcrypto
