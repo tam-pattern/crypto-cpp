@@ -133,8 +133,6 @@ class BigInt {
 template <size_t N>
 std::ostream& operator<<(std::ostream& os, const BigInt<N>& bigint);
 
-}  // namespace starkware
-
 /*
   Implements the user defined _Z literal that constructs a BigInt of an
   arbitrary size. For example: BigInt<4> a =
@@ -142,6 +140,8 @@ std::ostream& operator<<(std::ostream& os, const BigInt<N>& bigint);
 */
 template <char... Chars>
 static constexpr auto operator"" _Z();
+
+}  // namespace starkware
 
 #include "starkware/algebra/big_int.inl"
 
