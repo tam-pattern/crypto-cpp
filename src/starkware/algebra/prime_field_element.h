@@ -49,6 +49,10 @@ class PrimeFieldElement {
         MontgomeryMul(val, kMontgomeryRSquared));
   }
 
+  static constexpr PrimeFieldElement FromMont(const ValueType& val) {
+    return PrimeFieldElement(val);
+  }
+
   static PrimeFieldElement RandomElement(Prng* prng);
 
   static constexpr PrimeFieldElement Zero() { return PrimeFieldElement(ValueType({})); }
