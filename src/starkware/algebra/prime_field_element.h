@@ -115,7 +115,7 @@ class PrimeFieldElement {
   /*
    Returns montgomery representation.
   */
-  constexpr const ValueType& ToMont() { return value_; }
+  constexpr const ValueType& ToMont() const { return value_; }
 
  private:
   explicit constexpr PrimeFieldElement(ValueType val) : value_(val) {}
