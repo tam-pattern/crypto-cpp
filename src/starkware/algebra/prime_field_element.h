@@ -64,8 +64,8 @@ class PrimeFieldElement {
   }
 
   PrimeFieldElement operator-(const PrimeFieldElement& rhs) const {
-    return PrimeFieldElement{(value_ >= rhs.value_) ? (value_ - rhs.value_)
-                                                    : (value_ + kModulus - rhs.value_)};
+    return PrimeFieldElement{
+        (value_ >= rhs.value_) ? (value_ - rhs.value_) : (value_ + kModulus - rhs.value_)};
   }
 
   PrimeFieldElement operator-() const { return Zero() - *this; }
@@ -111,6 +111,11 @@ class PrimeFieldElement {
   ValueType ToStandardForm() const { return MontgomeryMul(value_, ValueType::One()); }
 
   std::string ToString() const { return ToStandardForm().ToString(); }
+
+  /*
+   Returns montgomery representation.
+  */
+  constexpr const ValueType& ToMont() { return value_; }
 
  private:
   explicit constexpr PrimeFieldElement(ValueType val) : value_(val) {}

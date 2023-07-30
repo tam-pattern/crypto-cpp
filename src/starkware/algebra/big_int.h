@@ -17,8 +17,8 @@
     Support for 32-bit builds, where __uint128_t isn't defined.
 */
 #ifndef __SIZEOF_INT128__
-  #include <boost/multiprecision/cpp_int.hpp>
-  typedef boost::multiprecision::uint128_t __uint128_t;
+#include <boost/multiprecision/cpp_int.hpp>
+typedef boost::multiprecision::uint128_t __uint128_t;
 #endif
 
 namespace starkware {
@@ -120,6 +120,8 @@ class BigInt {
   constexpr const uint64_t& operator[](int i) const { return gsl::at(value_, i); }
 
   static constexpr size_t LimbCount() { return N; }
+
+  constexpr const std::array<uint64_t, N>& ToLimbs() const { return value_; }
 
   /*
     Returns the number of leading zero's.
