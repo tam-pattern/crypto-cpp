@@ -81,7 +81,7 @@ BigInt<N> BigInt<N>::MulMod(const BigInt& a, const BigInt& b, const BigInt& modu
 
 template <size_t N>
 BigInt<N> BigInt<N>::InvModPrime(const BigInt& prime) const {
-  ASSERT(*this != BigInt::Zero(), "Inverse of 0 is not defined.");
+  ASSERT_PATTER(*this != BigInt::Zero(), "Inverse of 0 is not defined.");
   return GenericPow(
       *this, (prime - BigInt(2)).ToBoolVector(), BigInt::One(),
       [&prime](const BigInt& multiplier, BigInt* dst) { *dst = MulMod(*dst, multiplier, prime); });
@@ -110,7 +110,7 @@ template <size_t N>
 std::pair<BigInt<N>, BigInt<N>> BigInt<N>::Div(const BigInt& divisor) const {
   // This is a simple long-division implementation. It is not very efficient and can be improved
   // if this function becomes a bottleneck.
-  ASSERT(divisor != BigInt::Zero(), "Divisor must not be zero.");
+  ASSERT_PATTER(divisor != BigInt::Zero(), "Divisor must not be zero.");
 
   bool carry{};
   BigInt res{};
@@ -167,7 +167,7 @@ constexpr bool BigInt<N>::operator==(const BigInt<N>& other) const {
 
 template <size_t N>
 constexpr BigInt<N> BigInt<N>::ReduceIfNeeded(const BigInt<N>& x, const BigInt<N>& target) {
-  ASSERT(target.NumLeadingZeros() > 0, "target must have at least one leading zero.");
+  ASSERT_PATTER(target.NumLeadingZeros() > 0, "target must have at least one leading zero.");
   return (x >= target) ? x - target : x;
 }
 
@@ -175,9 +175,9 @@ template <size_t N>
 constexpr BigInt<N> BigInt<N>::MontMul(
     const BigInt& x, const BigInt& y, const BigInt& modulus, uint64_t montgomery_mprime) {
   BigInt<N> res{};
-  ASSERT(modulus.NumLeadingZeros() > 0, "We require at least one leading zero in the modulus");
-  ASSERT(y < modulus, "y is supposed to be smaller then the modulus");
-  ASSERT(x < modulus, "x is supposed to be smaller then the modulus.");
+  ASSERT_PATTER(modulus.NumLeadingZeros() > 0, "We require at least one leading zero in the modulus");
+  ASSERT_PATTER(y < modulus, "y is supposed to be smaller then the modulus");
+  ASSERT_PATTER(x < modulus, "x is supposed to be smaller then the modulus.");
   for (size_t i = 0; i < N; ++i) {
     __uint128_t temp = Umul128(x[i], y[0]) + res[0];
     uint64_t u_i = gsl::narrow_cast<uint64_t>(temp) * montgomery_mprime;
@@ -197,7 +197,7 @@ constexpr BigInt<N> BigInt<N>::MontMul(
       res[j] = res[j + 1];
     }
     res[N - 1] = carry1 + carry2;
-    ASSERT(res[N - 1] >= carry1, "There shouldn't be a carry here.");
+    ASSERT_PATTER(res[N - 1] >= carry1, "There shouldn't be a carry here.");
   }
   return ReduceIfNeeded(res, modulus);
 }

@@ -15,13 +15,13 @@ PrimeFieldElement GetOrderPackedMessage(
   static constexpr uint64_t kNonceLimit = Pow2(31);
   static constexpr uint64_t kExpirationTimestampLimit = Pow2(22);
 
-  ASSERT(order_type < kOrderTypeLimit, "Invalid order_type.");
-  ASSERT(vault_a < kVaultIdLimit, "vault_a is out of range.");
-  ASSERT(vault_b < kVaultIdLimit, "vault_b is out of range.");
-  ASSERT(amount_a < kAmountLimit, "amount_a is out of range.");
-  ASSERT(amount_b < kAmountLimit, "amount_b is out of range.");
-  ASSERT(nonce < kNonceLimit, "nonce is out of range.");
-  ASSERT(expiration_timestamp < kExpirationTimestampLimit, "expiration_timestamp is out of range.");
+  ASSERT_PATTER(order_type < kOrderTypeLimit, "Invalid order_type.");
+  ASSERT_PATTER(vault_a < kVaultIdLimit, "vault_a is out of range.");
+  ASSERT_PATTER(vault_b < kVaultIdLimit, "vault_b is out of range.");
+  ASSERT_PATTER(amount_a < kAmountLimit, "amount_a is out of range.");
+  ASSERT_PATTER(amount_b < kAmountLimit, "amount_b is out of range.");
+  ASSERT_PATTER(nonce < kNonceLimit, "nonce is out of range.");
+  ASSERT_PATTER(expiration_timestamp < kExpirationTimestampLimit, "expiration_timestamp is out of range.");
 
   PrimeFieldElement packed_message = PrimeFieldElement::FromUint(order_type);
   packed_message = (packed_message * PrimeFieldElement::FromUint(kVaultIdLimit)) +
@@ -75,7 +75,7 @@ uint64_t GetOrderIdFromMessage(const PrimeFieldElement& message) {
   const auto bigint = message.ToStandardForm();
   static_assert(bigint.LimbCount() == 4);
   // bigint must be smaller than 2^251, so the high limb must be below 2^59 (59 = 251 - 64 * 3).
-  ASSERT(bigint[3] < Pow2(59), "message is out of range.");
+  ASSERT_PATTER(bigint[3] < Pow2(59), "message is out of range.");
   // Order id is the 63 high bits of a 251-bit number, so we take 60 bits from the high limb and 4
   // more bits from the next limb.
   return (bigint[3] << 4) | (bigint[2] >> 60);

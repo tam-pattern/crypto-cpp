@@ -16,7 +16,7 @@ auto EcPoint<FieldElementT>::Double(const FieldElementT& alpha) const -> EcPoint
   // y = slope * x + y_intercept. The third intersection point is found using the equation that is
   // true for all cases: slope^2 = x_1 + x_2 + x_3 (where x_1, x_2 and x_3 are the x coordinates of
   // three points in the intersection of the curve with a line).
-  ASSERT(y != FieldElementT::Zero(), "Tangent slope of 2 torsion point is infinite.");
+  ASSERT_PATTER(y != FieldElementT::Zero(), "Tangent slope of 2 torsion point is infinite.");
   const auto x_squared = x * x;
   const FieldElementT tangent_slope = (x_squared + x_squared + x_squared + alpha) / (y + y);
   const FieldElementT x2 = tangent_slope * tangent_slope - (x + x);
@@ -26,7 +26,7 @@ auto EcPoint<FieldElementT>::Double(const FieldElementT& alpha) const -> EcPoint
 
 template <typename FieldElementT>
 auto EcPoint<FieldElementT>::operator+(const EcPoint& rhs) const -> EcPoint {
-  ASSERT(this->x != rhs.x, "x values should be different for arbitrary points");
+  ASSERT_PATTER(this->x != rhs.x, "x values should be different for arbitrary points");
   // To sum two points, one should draw a straight line containing these points, find the
   // third point in the intersection of the line and the curve, and then negate the y coordinate.
   // Notice that if x_1 = x_2 then either they are the same point or their sum is infinity. This
@@ -80,7 +80,7 @@ auto EcPoint<FieldElementT>::Random(
       return *pt;
     }
   }
-  ASSERT(false, "No random point found.");
+  ASSERT_PATTER(false, "No random point found.");
 }
 
 template <typename FieldElementT>
@@ -106,7 +106,7 @@ EcPoint<FieldElementT> EcPoint<FieldElementT>::MultiplyByScalar(
     }
     power = power.Double(alpha);
   }
-  ASSERT(res.has_value(), "Result of multiplication is the curve's zero element.");
+  ASSERT_PATTER(res.has_value(), "Result of multiplication is the curve's zero element.");
   return *res;
 }
 

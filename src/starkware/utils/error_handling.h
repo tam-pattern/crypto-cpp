@@ -19,7 +19,7 @@ class StarkwareException : public std::exception {
 /*
   We use "do {} while(false);" pattern to force the user to use ; after the macro.
 */
-#define ASSERT(cond, msg)            \
+#define ASSERT_PATTER(cond, msg)            \
   do {                               \
     if (!(cond)) {                   \
       throw StarkwareException(msg); \

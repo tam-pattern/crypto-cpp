@@ -26,7 +26,7 @@ class FractionFieldElement {
   */
   constexpr FractionFieldElement(const FieldElementT& num_val, const FieldElementT& denom_val)
       : numerator_(num_val), denominator_(denom_val) {
-    ASSERT(denominator_ != FieldElementT::Zero(), "Denominator can't be zero.");
+    ASSERT_PATTER(denominator_ != FieldElementT::Zero(), "Denominator can't be zero.");
   }
 
   FractionFieldElement operator+(const FractionFieldElement& rhs) const;

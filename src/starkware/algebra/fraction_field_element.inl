@@ -35,7 +35,7 @@ bool FractionFieldElement<FieldElementT>::operator==(
 
 template <typename FieldElementT>
 FractionFieldElement<FieldElementT> FractionFieldElement<FieldElementT>::Inverse() const {
-  ASSERT(this->numerator_ != FieldElementT::Zero(), "Zero does not have an inverse");
+  ASSERT_PATTER(this->numerator_ != FieldElementT::Zero(), "Zero does not have an inverse");
   return FractionFieldElement(denominator_, numerator_);
 }
 

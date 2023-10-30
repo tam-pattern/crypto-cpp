@@ -80,7 +80,7 @@ class PrimeFieldElement {
   bool operator!=(const PrimeFieldElement& rhs) const { return !(*this == rhs); }
 
   PrimeFieldElement Inverse() const {
-    ASSERT(*this != PrimeFieldElement::Zero(), "Zero does not have an inverse");
+    ASSERT_PATTER(*this != PrimeFieldElement::Zero(), "Zero does not have an inverse");
     return Pow((kModulus - 0x2_Z).ToBoolVector());
   }
 

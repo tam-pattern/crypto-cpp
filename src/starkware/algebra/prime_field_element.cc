@@ -93,7 +93,7 @@ PrimeFieldElement PrimeFieldElement::Sqrt() const {
 
     const PrimeFieldElement root = res.first.Inverse();
 
-    ASSERT(root * root == *this, "value does not have a square root.");
+    ASSERT_PATTER(root * root == *this, "value does not have a square root.");
 
     return root;
   }

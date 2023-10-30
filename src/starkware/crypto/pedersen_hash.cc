@@ -17,18 +17,18 @@ EcPoint<FractionFieldElement<PrimeFieldElement>> EcSubsetSumHash(
   using FractionFieldElementT = FractionFieldElement<PrimeFieldElement>;
   const auto selector_value_as_big_int = selector_value.ToStandardForm();
   const std::vector<bool> selector_bits = selector_value_as_big_int.ToBoolVector();
-  ASSERT(points.size() <= selector_bits.size(), "Too many points.");
+  ASSERT_PATTER(points.size() <= selector_bits.size(), "Too many points.");
 
   auto partial_sum = shift_point;
   for (size_t j = 0; j < points.size(); j++) {
     const auto point = points[j].template ConvertTo<FractionFieldElementT>();
-    ASSERT(partial_sum.x != point.x, "Adding a point to itself or to its inverse point.");
+    ASSERT_PATTER(partial_sum.x != point.x, "Adding a point to itself or to its inverse point.");
     if (selector_bits[j]) {
       partial_sum = partial_sum + point;
     }
   }
   for (size_t j = points.size(); j < selector_bits.size(); j++) {
-    ASSERT(selector_bits[j] == 0, "Given selector is too big.");
+    ASSERT_PATTER(selector_bits[j] == 0, "Given selector is too big.");
   }
   return partial_sum;
 }
