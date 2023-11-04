@@ -1,18 +1,18 @@
 cmake_minimum_required (VERSION 3.5)
 
-find_program(CLANGXX_EXECUTABLE clang++)
+find_program(CLANGXX_EXECUTABLE g++)
 if(CLANGXX_EXECUTABLE)
-    message("Tam log - Clang++ found at: ${CLANGXX_EXECUTABLE}")
+    message("Pattern log - Clang++ found at: ${CLANGXX_EXECUTABLE}")
 else()
-    message("Tam log - Clang++ not found. Please install it.")
+    message("Pattern log - Clang++ not found. Please install it.")
 endif()
 
 set(CMAKE_CXX_COMPILER ${CLANGXX_EXECUTABLE})
 
 if(DEFINED CMAKE_CXX_COMPILER)
-    message("Tam log - CMAKE_CXX_COMPILER: ${CMAKE_CXX_COMPILER}")
+    message("Pattern log - CMAKE_CXX_COMPILER: ${CMAKE_CXX_COMPILER}")
 else()
-    message("Tam log - CMAKE_CXX_COMPILER not found. Please install it.")
+    message("Pattern log - CMAKE_CXX_COMPILER not found. Please install it.")
 endif()
 
 if (NOT DEFINED CMAKE_CXX_COMPILER)
@@ -23,17 +23,17 @@ project(StarkwareCryptoLib VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
-)
-# For Windows: Prevent overriding the parent project's compiler/linker settings
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
+# include(FetchContent)
+# FetchContent_Declare(
+#   googletest
+#   URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
+# )
+# # For Windows: Prevent overriding the parent project's compiler/linker settings
+# set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+# FetchContent_MakeAvailable(googletest)
 
-include(CTest)
-enable_testing()
+# include(CTest)
+# enable_testing()
 include_directories("${CMAKE_SOURCE_DIR}/src")
 
 if (NOT DEFINED CMAKE_BUILD_TYPE)
@@ -41,7 +41,7 @@ if (NOT DEFINED CMAKE_BUILD_TYPE)
 endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Werror -Wall -Wextra -fno-strict-aliasing -fPIC")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Werror -Wall -Wextra -Wno-type-limits -fno-strict-aliasing -fPIC")
 
 set(CC_OPTIMIZE "-O3")
 
